@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Guide: Installing PHP on CentOS 7 & 8</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #24292e;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: 0.3em;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        code {
+            font-family: 'SF Mono', Monaco, Consolas, 'Liberation Mono', Courier, monospace;
+            background-color: #f6f8fa;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 85%;
+        }
+        pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            padding: 16px;
+            overflow: auto;
+            line-height: 1.45;
+            border: 1px solid #ddd;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            white-space: pre;
+        }
+        .note {
+            background-color: #fff5b1;
+            border-left: 4px solid #f9c513;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 3px;
+        }
+        .warning {
+            background-color: #ffeef0;
+            border-left: 4px solid #d73a49;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 3px;
+        }
+        .info-box {
+            background-color: #e6f3ff;
+            border-left: 4px solid #0366d6;
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 3px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 16px 0;
+        }
+        th, td {
+            border: 1px solid #dfe2e5;
+            padding: 8px 13px;
+        }
+        th {
+            background-color: #f6f8fa;
+        }
+        .os-tabs {
+            display: flex;
+            margin: 20px 0;
+            border-bottom: 2px solid #e1e4e8;
+        }
+        .os-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            font-weight: 600;
+            background-color: #f6f8fa;
+            margin-right: 5px;
+        }
+        .os-tab.active {
+            background-color: #0366d6;
+            color: white;
+            border-color: #0366d6;
+        }
+        .os-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+        }
+        .os-content.active {
+            display: block;
+        }
+        .php-version-box {
+            background-color: #e6ffed;
+            border: 1px solid #28a745;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .command-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 16px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+        .module-table td:first-child {
+            font-weight: bold;
+            font-family: monospace;
+        }
+        .step {
+            background-color: #f9f9f9;
+            border-left: 4px solid #0366d6;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Complete Guide: Installing PHP on CentOS 7 & 8</h1>
+
+    <div class="info-box">
+        <strong>📌 About PHP:</strong> Today, virtually no web applications will work without PHP. PHP differs from other programming languages in that it is executed on the server side and generates HTML code dynamically. This guide covers PHP installation on CentOS 7 and 8 using Remi repositories for the latest PHP versions.
+    </div>
+
+    <div class="os-tabs">
+        <div class="os-tab active" onclick="showOS('centos7')">CentOS 7</div>
+        <div class="os-tab" onclick="showOS('centos8')">CentOS 8</div>
+    </div>
+
+    <!-- CentOS 7 Content -->
+    <div id="centos7" class="os-content active">
+        <h2>Installing PHP on CentOS 7</h2>
+
+        <div class="php-version-box">
+            <strong>🐘 PHP Versions Available:</strong> Using Remi repository, you can install PHP 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3. This guide uses PHP 7.3 as an example.
+        </div>
+
+        <div class="step">
+            <h3>Step 1: Install Prerequisites</h3>
+            <div class="command-block">
+# Install wget for downloading files
+sudo yum install wget -y
+
+# Install yum-utils for repository management
+sudo yum install yum-utils -y
+
+# Install EPEL (Extra Packages for Enterprise Linux)
+sudo yum install epel-release -y
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Add Remi Repository</h3>
+            <div class="command-block">
+# Download and install Remi repository for CentOS 7
+rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+            </div>
+
+            <div class="note">
+                <strong>Note:</strong> Remi repository provides the latest PHP versions that are not available in the default CentOS repositories.
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Enable Desired PHP Version</h3>
+            <div class="command-block">
+# Enable PHP 7.3 from Remi repository
+sudo yum-config-manager --enable remi-php73
+
+# For PHP 7.4, use: remi-php74
+# For PHP 8.0, use: remi-php80
+# For PHP 8.1, use: remi-php81
+# For PHP 8.2, use: remi-php82
+# For PHP 8.3, use: remi-php83
+            </div>
+
+            <table>
+                <tr>
+                    <th>PHP Version</th>
+                    <th>Repository Enable Command</th>
+                </tr>
+                <tr>
+                    <td>PHP 5.6</td>
+                    <td><code>yum-config-manager --enable remi-php56</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 7.0</td>
+                    <td><code>yum-config-manager --enable remi-php70</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 7.1</td>
+                    <td><code>yum-config-manager --enable remi-php71</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 7.2</td>
+                    <td><code>yum-config-manager --enable remi-php72</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 7.3</td>
+                    <td><code>yum-config-manager --enable remi-php73</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 7.4</td>
+                    <td><code>yum-config-manager --enable remi-php74</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 8.0</td>
+                    <td><code>yum-config-manager --enable remi-php80</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 8.1</td>
+                    <td><code>yum-config-manager --enable remi-php81</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 8.2</td>
+                    <td><code>yum-config-manager --enable remi-php82</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 8.3</td>
+                    <td><code>yum-config-manager --enable remi-php83</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Install PHP and Required Modules</h3>
+            <div class="command-block">
+# Install PHP core with common modules
+sudo yum install php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysqlnd -y
+
+# Install additional useful modules (optional)
+sudo yum install php-xml php-mbstring php-zip php-json php-intl php-bcmath -y
+            </div>
+
+            <h4>PHP Module Descriptions:</h4>
+            <table class="module-table">
+                <tr>
+                    <th>Module</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>php</td>
+                    <td>Core PHP package</td>
+                </tr>
+                <tr>
+                    <td>php-common</td>
+                    <td>Common files for PHP</td>
+                </tr>
+                <tr>
+                    <td>php-opcache</td>
+                    <td>OPcache for performance improvement</td>
+                </tr>
+                <tr>
+                    <td>php-mcrypt</td>
+                    <td>Encryption functions</td>
+                </tr>
+                <tr>
+                    <td>php-cli</td>
+                    <td>Command-line interface for PHP</td>
+                </tr>
+                <tr>
+                    <td>php-gd</td>
+                    <td>Image processing library</td>
+                </tr>
+                <tr>
+                    <td>php-curl</td>
+                    <td>cURL library for HTTP requests</td>
+                </tr>
+                <tr>
+                    <td>php-mysqlnd</td>
+                    <td>MySQL native driver (for MySQL/MariaDB)</td>
+                </tr>
+                <tr>
+                    <td>php-xml</td>
+                    <td>XML parsing functions</td>
+                </tr>
+                <tr>
+                    <td>php-mbstring</td>
+                    <td>Multibyte string support</td>
+                </tr>
+                <tr>
+                    <td>php-zip</td>
+                    <td>ZIP file handling</td>
+                </tr>
+                <tr>
+                    <td>php-json</td>
+                    <td>JSON support</td>
+                </tr>
+                <tr>
+                    <td>php-intl</td>
+                    <td>Internationalization functions</td>
+                </tr>
+                <tr>
+                    <td>php-bcmath</td>
+                    <td>Arbitrary precision mathematics</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="step">
+            <h3>Step 5: Verify PHP Installation</h3>
+            <div class="command-block">
+# Check PHP version
+php -v
+
+# Check installed PHP modules
+php -m
+
+# Check PHP configuration
+php -i | grep "Loaded Configuration File"
+            </div>
+
+            <p>Example output:</p>
+            <pre><code>PHP 7.3.33 (cli) (built: Oct 19 2021 14:48:14) ( NTS )
+Copyright (c) 1997-2018 The PHP Group
+Zend Engine v3.3.33, Copyright (c) 1998-2018 Zend Technologies
+    with Zend OPcache v7.3.33, Copyright (c) 1999-2018, by Zend Technologies</code></pre>
+        </div>
+    </div>
+
+    <!-- CentOS 8 Content -->
+    <div id="centos8" class="os-content">
+        <h2>Installing PHP on CentOS 8</h2>
+
+        <div class="php-version-box">
+            <strong>🐘 PHP Versions Available:</strong> CentOS 8 with Remi repository supports PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3. This guide covers PHP 8.0+ installation.
+        </div>
+
+        <div class="note">
+            <strong>Note:</strong> CentOS 8 uses DNF (Dandified YUM) as the package manager instead of YUM. DNF is the next-generation version of YUM.
+        </div>
+
+        <div class="step">
+            <h3>Step 1: Install EPEL Repository</h3>
+            <div class="command-block">
+# Install EPEL for CentOS 8
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Install Remi Repository</h3>
+            <div class="command-block">
+# Install Remi repository for CentOS 8
+sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Verify Repository Installation (Optional)</h3>
+            <div class="command-block">
+# Check if EPEL is installed
+rpm -qa | grep epel
+
+# Check if Remi is installed
+rpm -qa | grep remi
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: List Available PHP Versions</h3>
+            <div class="command-block">
+# View available PHP modules and versions
+dnf module list php
+            </div>
+
+            <p>Example output:</p>
+            <pre><code>CentOS-8 - AppStream
+Name    Stream    Profiles                         Summary
+php     7.2       common [d], devel, minimal       PHP scripting language
+php     7.3       common [d], devel, minimal       PHP scripting language
+php     7.4       common [d], devel, minimal       PHP scripting language
+
+Remi's Modular repository
+php     remi-7.4  common [d], devel, minimal       PHP scripting language
+php     remi-8.0  common [d], devel, minimal       PHP scripting language
+php     remi-8.1  common [d], devel, minimal       PHP scripting language
+php     remi-8.2  common [d], devel, minimal       PHP scripting language
+php     remi-8.3  common [d], devel, minimal       PHP scripting language</code></pre>
+        </div>
+
+        <div class="step">
+            <h3>Step 5: Enable Desired PHP Version</h3>
+            <div class="command-block">
+# Reset PHP module (if previously enabled)
+sudo dnf module reset php -y
+
+# Enable PHP 8.0 from Remi repository
+sudo dnf module enable php:remi-8.0 -y
+
+# For PHP 8.1: php:remi-8.1
+# For PHP 8.2: php:remi-8.2
+# For PHP 8.3: php:remi-8.3
+            </div>
+
+            <table>
+                <tr>
+                    <th>PHP Version</th>
+                    <th>Enable Command</th>
+                </tr>
+                <tr>
+                    <td>PHP 7.4</td>
+                    <td><code>sudo dnf module enable php:remi-7.4 -y</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 8.0</td>
+                    <td><code>sudo dnf module enable php:remi-8.0 -y</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 8.1</td>
+                    <td><code>sudo dnf module enable php:remi-8.1 -y</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 8.2</td>
+                    <td><code>sudo dnf module enable php:remi-8.2 -y</code></td>
+                </tr>
+                <tr>
+                    <td>PHP 8.3</td>
+                    <td><code>sudo dnf module enable php:remi-8.3 -y</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="step">
+            <h3>Step 6: Install PHP and Required Modules</h3>
+            <div class="command-block">
+# Install PHP core with common modules
+sudo dnf install php php-opcache php-gd php-curl php-mysqlnd -y
+
+# Install additional useful modules
+sudo dnf install php-cli php-xml php-mbstring php-zip php-json php-intl php-bcmath -y
+            </div>
+
+            <h4>PHP Modules for CentOS 8:</h4>
+            <table>
+                <tr>
+                    <th>Module</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>php</td>
+                    <td>Core PHP package</td>
+                </tr>
+                <tr>
+                    <td>php-cli</td>
+                    <td>Command-line interface for PHP</td>
+                </tr>
+                <tr>
+                    <td>php-common</td>
+                    <td>Common files for PHP</td>
+                </tr>
+                <tr>
+                    <td>php-opcache</td>
+                    <td>OPcache for performance improvement</td>
+                </tr>
+                <tr>
+                    <td>php-gd</td>
+                    <td>Image processing library</td>
+                </tr>
+                <tr>
+                    <td>php-curl</td>
+                    <td>cURL library for HTTP requests</td>
+                </tr>
+                <tr>
+                    <td>php-mysqlnd</td>
+                    <td>MySQL native driver (for MySQL/MariaDB)</td>
+                </tr>
+                <tr>
+                    <td>php-xml</td>
+                    <td>XML parsing functions</td>
+                </tr>
+                <tr>
+                    <td>php-mbstring</td>
+                    <td>Multibyte string support</td>
+                </tr>
+                <tr>
+                    <td>php-zip</td>
+                    <td>ZIP file handling</td>
+                </tr>
+                <tr>
+                    <td>php-json</td>
+                    <td>JSON support</td>
+                </tr>
+                <tr>
+                    <td>php-intl</td>
+                    <td>Internationalization functions</td>
+                </tr>
+                <tr>
+                    <td>php-bcmath</td>
+                    <td>Arbitrary precision mathematics</td>
+                </tr>
+                <tr>
+                    <td>php-pdo</td>
+                    <td>PHP Data Objects database abstraction layer</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="step">
+            <h3>Step 7: Verify PHP Installation</h3>
+            <div class="command-block">
+# Check PHP version
+php -v
+
+# Check installed PHP modules
+php -m
+
+# Check PHP configuration
+php -i | grep "Loaded Configuration File"
+            </div>
+
+            <p>Example output for PHP 8.0:</p>
+            <pre><code>PHP 8.0.27 (cli) (built: Dec 13 2022 14:23:16) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v4.0.27, Copyright (c) Zend Technologies
+    with Zend OPcache v8.0.27, Copyright (c), by Zend Technologies</code></pre>
+        </div>
+    </div>
+
+    <h2>Post-Installation Configuration</h2>
+
+    <div class="step">
+        <h3>PHP Configuration File Location</h3>
+        <table>
+            <tr>
+                <th>File</th>
+                <th>Purpose</th>
+                <th>Location</th>
+            </tr>
+            <tr>
+                <td>php.ini</td>
+                <td>Main PHP configuration</td>
+                <td><code>/etc/php.ini</code></td>
+            </tr>
+            <tr>
+                <td>php.d/</td>
+                <td>Module-specific configurations</td>
+                <td><code>/etc/php.d/</code></td>
+            </tr>
+            <tr>
+                <td>php-fpm.conf</td>
+                <td>PHP-FPM configuration (if installed)</td>
+                <td><code>/etc/php-fpm.conf</code></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="step">
+        <h3>Common PHP Configuration Changes</h3>
+        <p>Edit php.ini to adjust common settings:</p>
+        <div class="command-block">
+sudo vi /etc/php.ini
+        </div>
+
+        <table>
+            <tr>
+                <th>Directive</th>
+                <th>Recommended Value</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>memory_limit</td>
+                <td><code>256M</code></td>
+                <td>Maximum memory a script can consume</td>
+            </tr>
+            <tr>
+                <td>upload_max_filesize</td>
+                <td><code>64M</code></td>
+                <td>Maximum file upload size</td>
+            </tr>
+            <tr>
+                <td>post_max_size</td>
+                <td><code>64M</code></td>
+                <td>Maximum POST data size</td>
+            </tr>
+            <tr>
+                <td>max_execution_time</td>
+                <td><code>300</code></td>
+                <td>Maximum script execution time in seconds</td>
+            </tr>
+            <tr>
+                <td>max_input_time</td>
+                <td><code>300</code></td>
+                <td>Maximum time for parsing input data</td>
+            </tr>
+            <tr>
+                <td>date.timezone</td>
+                <td><code>America/New_York</code></td>
+                <td>Set your timezone (e.g., America/New_York, Europe/London)</td>
+            </tr>
+            <tr>
+                <td>display_errors</td>
+                <td><code>Off</code> (production) / <code>On</code> (development)</td>
+                <td>Display PHP errors</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="step">
+        <h3>Testing PHP with Apache</h3>
+        <p>Create a test PHP file in your web directory:</p>
+        <div class="command-block">
+echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
+        </div>
+
+        <p>Access it via browser:</p>
+        <div class="command-block">
+http://your-server-ip/info.php
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Security Warning:</strong> Remove or rename info.php after testing, as it exposes sensitive PHP configuration information to visitors.
+        </div>
+    </div>
+
+    <h2>PHP-FPM Installation (Optional)</h2>
+
+    <div class="step">
+        <h3>Install PHP-FPM for Better Performance with Nginx</h3>
+        
+        <h4>CentOS 7:</h4>
+        <div class="command-block">
+sudo yum install php-fpm -y
+sudo systemctl start php-fpm
+sudo systemctl enable php-fpm
+        </div>
+
+        <h4>CentOS 8:</h4>
+        <div class="command-block">
+sudo dnf install php-fpm -y
+sudo systemctl start php-fpm
+sudo systemctl enable php-fpm
+        </div>
+
+        <h4>PHP-FPM Configuration:</h4>
+        <div class="command-block">
+sudo vi /etc/php-fpm.d/www.conf
+        </div>
+
+        <p>Common settings to adjust:</p>
+        <pre><code>user = apache
+group = apache
+listen = /run/php-fpm/www.sock
+listen.owner = apache
+listen.group = apache
+listen.mode = 0660</code></pre>
+    </div>
+
+    <h2>Installing Additional PHP Extensions</h2>
+
+    <div class="step">
+        <h3>Common Extensions and Their Installation</h3>
+        
+        <table>
+            <tr>
+                <th>Extension</th>
+                <th>Purpose</th>
+                <th>Install Command (CentOS 7)</th>
+                <th>Install Command (CentOS 8)</th>
+            </tr>
+            <tr>
+                <td>php-redis</td>
+                <td>Redis support</td>
+                <td><code>yum install php-redis</code></td>
+                <td><code>dnf install php-redis</code></td>
+            </tr>
+            <tr>
+                <td>php-memcached</td>
+                <td>Memcached support</td>
+                <td><code>yum install php-memcached</code></td>
+                <td><code>dnf install php-memcached</code></td>
+            </tr>
+            <tr>
+                <td>php-pgsql</td>
+                <td>PostgreSQL support</td>
+                <td><code>yum install php-pgsql</code></td>
+                <td><code>dnf install php-pgsql</code></td>
+            </tr>
+            <tr>
+                <td>php-sqlite3</td>
+                <td>SQLite3 support</td>
+                <td><code>yum install php-sqlite3</code></td>
+                <td><code>dnf install php-sqlite3</code></td>
+            </tr>
+            <tr>
+                <td>php-pear</td>
+                <td>PEAR package manager</td>
+                <td><code>yum install php-pear</code></td>
+                <td><code>dnf install php-pear</code></td>
+            </tr>
+            <tr>
+                <td>php-devel</td>
+                <td>PHP development files</td>
+                <td><code>yum install php-devel</code></td>
+                <td><code>dnf install php-devel</code></td>
+            </tr>
+        </table>
+
+        <div class="note">
+            <strong>Note:</strong> After installing new extensions, restart Apache or PHP-FPM:
+            <code>sudo systemctl restart httpd</code> or <code>sudo systemctl restart php-fpm</code>
+        </div>
+    </div>
+
+    <h2>Troubleshooting Common Issues</h2>
+
+    <table>
+        <tr>
+            <th>Issue</th>
+            <th>Solution</th>
+        </tr>
+        <tr>
+            <td>PHP version not updating after enabling Remi</td>
+            <td>Clear cache: <code>sudo yum clean all</code> (CentOS 7) or <code>sudo dnf clean all</code> (CentOS 8)</td>
+        </tr>
+        <tr>
+            <td>php-mcrypt not available in PHP 7.2+</td>
+            <td>Use <code>php-pecl-mcrypt</code> instead: <code>sudo yum install php-pecl-mcrypt</code></td>
+        </tr>
+        <tr>
+            <td>PHP files downloading instead of executing</td>
+            <td>Ensure Apache PHP module is installed and enabled: <code>sudo yum install php mod_php</code></td>
+        </tr>
+        <tr>
+            <td>404 error when accessing PHP files</td>
+            <td>Check if Apache PHP handler is configured: <code>sudo httpd -M | grep php</code></td>
+        </tr>
+        <tr>
+            <td>Memory limit too low for applications</td>
+            <td>Increase memory_limit in php.ini: <code>memory_limit = 256M</code></td>
+        </tr>
+        <tr>
+            <td>PHP-FPM not starting</td>
+            <td>Check configuration: <code>sudo php-fpm -t</code>, check logs: <code>sudo tail -f /var/log/php-fpm/error.log</code></td>
+        </tr>
+    </table>
+
+    <h2>Quick Reference Commands</h2>
+
+    <table>
+        <tr>
+            <th>Action</th>
+            <th>CentOS 7 Command</th>
+            <th>CentOS 8 Command</th>
+        </tr>
+        <tr>
+            <td>Install PHP</td>
+            <td><code>yum install php php-common</code></td>
+            <td><code>dnf install php php-common</code></td>
+        </tr>
+        <tr>
+            <td>Check PHP version</td>
+            <td colspan="2"><code>php -v</code></td>
+        </tr>
+        <tr>
+            <td>List PHP modules</td>
+            <td colspan="2"><code>php -m</code></td>
+        </tr>
+        <tr>
+            <td>Restart Apache</td>
+            <td colspan="2"><code>sudo systemctl restart httpd</code></td>
+        </tr>
+        <tr>
+            <td>Restart PHP-FPM</td>
+            <td colspan="2"><code>sudo systemctl restart php-fpm</code></td>
+        </tr>
+        <tr>
+            <td>Find php.ini location</td>
+            <td colspan="2"><code>php -i | grep "Loaded Configuration File"</code></td>
+        </tr>
+        <tr>
+            <td>Clear package cache</td>
+            <td><code>sudo yum clean all</code></td>
+            <td><code>sudo dnf clean all</code></td>
+        </tr>
+    </table>
+
+    <script>
+        function showOS(os) {
+            document.querySelectorAll('.os-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.os-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(os).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
